@@ -2,64 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Personagem_Item;
+use App\Models\Personagem;
+use App\Models\Item;
+use App\Models\PersonagemItem;
 use Illuminate\Http\Request;
 
 class PersonagemItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $personagemItens = PersonagemItem::with([
+            'personagem',
+            'item'
+        ])->get();
+
+        return view(
+            'personagem_itens.index',
+            compact('personagemItens')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $personagens = Personagem::all();
+        $itens = Item::all();
+
+        return view(
+            'personagem_itens.create',
+            compact(
+                'personagens',
+                'itens'
+            )
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        PersonagemItem::create([
+            'personagem_id' => $request->personagem_id,
+            'item_id' => $request->item_id,
+            'quantidade' => $request->quantidade
+        ]);
+
+        return redirect()
+            ->route('personagem-itens.index')
+            ->with(
+                'success',
+                'Item adicionado ao personagem.'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Personagem_Item $personagem_Item)
+    public function show(PersonagemItem $personagemItem)
     {
-        //
+        return view(
+            'personagem_itens.show',
+            compact('personagemItem')
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Personagem_Item $personagem_Item)
+    public function edit(PersonagemItem $personagemItem)
     {
-        //
+        $personagens = Personagem::all();
+        $itens = Item::all();
+
+        return view(
+            'personagem_itens.edit',
+            compact(
+                'personagemItem',
+                'personagens',
+                'itens'
+            )
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Personagem_Item $personagem_Item)
+    public function update(
+        Request $request,
+        PersonagemItem $personagemItem
+    )
     {
-        //
+        $personagemItem->update([
+            'personagem_id' => $request->personagem_id,
+            'item_id' => $request->item_id,
+            'quantidade' => $request->quantidade
+        ]);
+
+        return redirect()
+            ->route('personagem-itens.index')
+            ->with(
+                'success',
+                'Inventário atualizado.'
+            );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Personagem_Item $personagem_Item)
+    public function destroy(PersonagemItem $personagemItem)
     {
-        //
+        $personagemItem->delete();
+
+        return redirect()
+            ->route('personagem-itens.index')
+            ->with(
+                'success',
+                'Item removido do inventário.'
+            );
     }
 }

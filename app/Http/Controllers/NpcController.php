@@ -3,63 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Models\Npc;
+use App\Models\Classe;
+use App\Models\Raca;
 use Illuminate\Http\Request;
 
 class NpcController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $npcs = Npc::with(['raca','classe'])->get();
+
+        return view('npcs.index', compact('npcs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $racas = Raca::all();
+        $classes = Classe::all();
+
+        return view('npcs.create', compact(
+            'racas',
+            'classes'
+        ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Npc::create($request->all());
+
+        return redirect()
+            ->route('npcs.index')
+            ->with('success', 'NPC criado!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Npc $npc)
     {
-        //
+        return view('npcs.show', compact('npc'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Npc $npc)
     {
-        //
+        $racas = Raca::all();
+        $classes = Classe::all();
+
+        return view('npcs.edit', compact(
+            'npc',
+            'racas',
+            'classes'
+        ));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Npc $npc)
     {
-        //
+        $npc->update($request->all());
+
+        return redirect()
+            ->route('npcs.index')
+            ->with('success', 'NPC atualizado!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Npc $npc)
     {
-        //
+        $npc->delete();
+
+        return redirect()
+            ->route('npcs.index')
+            ->with('success', 'NPC removido!');
     }
 }

@@ -7,59 +7,52 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $itens = Item::all();
+
+        return view('itens.index', compact('itens'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('itens.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Item::create($request->all());
+
+        return redirect()
+            ->route('itens.index')
+            ->with('success', 'Item criado!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Item $item)
     {
-        //
+        return view('itens.show', compact('item'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Item $item)
     {
-        //
+        return view('itens.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Item $item)
     {
-        //
+        $item->update($request->all());
+
+        return redirect()
+            ->route('itens.index')
+            ->with('success', 'Item atualizado!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return redirect()
+            ->route('itens.index')
+            ->with('success', 'Item removido!');
     }
 }
