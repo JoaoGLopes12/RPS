@@ -2,37 +2,55 @@
 
 @section('content')
 
-<h1>Dashboard</h1>
+<h1>Dashboard RPG</h1>
+
+<hr>
 
 <div>
 
-<h3>Total de Personagens</h3>
+    <h3>Total de Personagens</h3>
 
-<p>{{ $personagens }}</p>
+    <p>{{ $totalPersonagens }}</p>
 
 </div>
 
+<hr>
+
 <div>
 
-<h3>Total de Classes</h3>
+    <h3>Total de NPCs</h3>
 
-<p>{{ $classes }}</p>
+    <p>{{ $totalNpcs }}</p>
 
 </div>
 
+<hr>
+
 <div>
 
-<h3>Total de Raças</h3>
+    <h3>Total de Raças</h3>
 
-<p>{{ $racas }}</p>
+    <p>{{ $totalRacas }}</p>
 
 </div>
 
+<hr>
+
 <div>
 
-<h3>Total de Itens</h3>
+    <h3>Total de Classes</h3>
 
-<p>{{ $itens }}</p>
+    <p>{{ $totalClasses }}</p>
+
+</div>
+
+<hr>
+
+<div>
+
+    <h3>Total de Itens</h3>
+
+    <p>{{ $totalItens }}</p>
 
 </div>
 
