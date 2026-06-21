@@ -58,3 +58,4 @@ Route::get('/personagens/{id}', [
     PersonagemApiController::class,
     'show'
 ]);
+// API routes are read-only here; web resource routes live in routes/web.php

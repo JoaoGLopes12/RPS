@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Raca;
 use Illuminate\Http\Request;
 
