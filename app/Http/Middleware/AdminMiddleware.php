@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -14,8 +15,8 @@ class AdminMiddleware
     ): Response {
 
         if (
-            auth()->check() &&
-            auth()->user()->tipo === 'admin'
+            Auth::check() &&
+            Auth::user()->tipo === 'admin'
         ) {
             return $next($request);
         }

@@ -54,11 +54,15 @@
             </a>
 
             <span style="float:right;color:white;">
-
                 {{ auth()->user()->name }}
-
                 ({{ ucfirst(auth()->user()->tipo) }})
 
+                <form method="POST" action="{{ route('logout') }}" style="display:inline;margin-left:1rem;">
+                    @csrf
+                    <button type="submit" style="background:none;border:none;color:white;cursor:pointer;padding:0;font:inherit;">
+                        Sair
+                    </button>
+                </form>
             </span>
 
         @else
